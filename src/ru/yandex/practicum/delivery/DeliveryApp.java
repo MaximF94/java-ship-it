@@ -18,25 +18,25 @@ public class DeliveryApp {
         boolean running = true;
         while (running) {
             showMenu();
-            int choice = Integer.parseInt(scanner.nextLine());
+            String choice = scanner.nextLine();
 
             switch (choice) {
-                case 1:
+                case "1":
                     addParcel();
                     break;
-                case 2:
+                case "2":
                     sendParcels();
                     break;
-                case 3:
+                case "3":
                     calculateCosts();
                     break;
-                case 4:
+                case "4":
                     addReportStatus();
                     break;
-                case 5:
+                case "5":
                     showParcelsInBox();
                     break;
-                case 0:
+                case "0":
                     running = false;
                     break;
                 default:
@@ -68,8 +68,8 @@ public class DeliveryApp {
         // Подсказка: спросите тип посылки и необходимые поля, создайте объект и добавьте в allParcels
         int timeToLive = 0;
         showParcelTypes();
-        int parcelType = Integer.parseInt(scanner.nextLine());
-        if(parcelType <= 0 || parcelType > 3) {
+        String parcelType = scanner.nextLine();
+        if(Integer.parseInt(parcelType)<= 0 || Integer.parseInt(parcelType) > 3) {
             System.out.println("Выбран неверный тип посылки");
             return;
         }
@@ -83,24 +83,24 @@ public class DeliveryApp {
         String description = scanner.nextLine();
         System.out.println("Введите номер посылки:");
         int parcelNum = Integer.parseInt(scanner.nextLine());
-        if(parcelType == 2) {
+        if(parcelType.equals("2")) {
             System.out.println("Введите срок годности:");
             timeToLive = Integer.parseInt(scanner.nextLine());
         }
         switch(parcelType) {
-            case 1:
+            case "1":
                 StandardParcel standardParcel = new StandardParcel(description,weight,deliveryAddress,
                         sendDay,parcelNum);
                 allParcels.add(standardParcel);
                 standardParcelBox.addParcel(standardParcel);
                 break;
-            case 2:
+            case "2":
                 PerishableParcel perishableParcel = new PerishableParcel(description,weight,deliveryAddress,sendDay,
                         timeToLive,parcelNum);
                 allParcels.add(perishableParcel);
                 perishableParcelBox.addParcel(perishableParcel);
                 break;
-            case 3:
+            case "3":
                 FragileParcel fragileParcel = new FragileParcel(description,weight,deliveryAddress,sendDay,parcelNum);
                 allParcels.add(fragileParcel);
                 trackableParcels.put(parcelNum, fragileParcel);
@@ -154,21 +154,21 @@ public class DeliveryApp {
 
     private static void showParcelsInBox() {
         showParcelTypes();
-        int parcelType = Integer.parseInt(scanner.nextLine());
-        if(parcelType <= 0 || parcelType > 3) {
+        String parcelType = scanner.nextLine();
+
+        if(Integer.parseInt(parcelType)<= 0 || Integer.parseInt(parcelType) > 3) {
             System.out.println("Выбран неверный тип посылки");
             return;
         }
-
         switch(parcelType) {
-            case 1:
-                standardParcelBox.getAllParcels();
+            case "1":
+                System.out.println(standardParcelBox.getAllParcels());
                 break;
-            case 2:
-                perishableParcelBox.getAllParcels();
+            case "2":
+                System.out.println(perishableParcelBox.getAllParcels());
                 break;
-            case 3:
-                fragileParcelBox.getAllParcels();
+            case "3":
+                System.out.println(fragileParcelBox.getAllParcels());
                 break;
             default:
                 System.out.println("Неверный выбор.");

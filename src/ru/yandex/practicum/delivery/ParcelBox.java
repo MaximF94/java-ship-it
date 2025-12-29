@@ -33,16 +33,8 @@ public class ParcelBox<T extends Parcel> {
         box.add(parcel);
     }
 
-    public void getAllParcels() {
-
-        if(box.isEmpty()){
-            System.out.println("Коробка пуста!");
-            return;
-        }
-
-        for (T parcel : box) {
-            System.out.println(parcel.getDescription());
-        }
+    public ArrayList<T> getAllParcels() {
+        return box;
     }
 
     public int getCountParcelsInBox() {

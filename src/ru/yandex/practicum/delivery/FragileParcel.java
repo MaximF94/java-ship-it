@@ -3,16 +3,19 @@ package ru.yandex.practicum.delivery;
 //Хрупкая посылка
 public class FragileParcel extends Parcel implements Trackable{
 
-    private String location;
+    protected static final int FRAGILE_PRICE = 4;
+
+    protected String location;
 
     public FragileParcel(String description, int weight, String deliveryAddress, int sendDay, int parcelNum) {
         super(description, weight, deliveryAddress, sendDay, parcelNum);
     }
 
     @Override
-    public int calculateDeliveryCost() {
-        return getWeight() * Parcel.FRAGILE_PRICE;
+    public int getBaseCost() {
+        return FRAGILE_PRICE;
     }
+
 
     @Override
     public void packageItem() {
@@ -28,5 +31,17 @@ public class FragileParcel extends Parcel implements Trackable{
 
     public String getLocation() {
         return location;
+    }
+
+    @Override
+    public String toString() {
+        return "FragileParcel{" +
+                "location='" + location + '\'' +
+                ", description='" + description + '\'' +
+                ", weight=" + weight +
+                ", deliveryAddress='" + deliveryAddress + '\'' +
+                ", sendDay=" + sendDay +
+                ", parcelNum=" + parcelNum +
+                '}';
     }
 }

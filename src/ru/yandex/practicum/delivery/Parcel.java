@@ -1,16 +1,12 @@
 package ru.yandex.practicum.delivery;
 
 public abstract class Parcel {
-    //Пока не понял правильно ли создавать такие константы. По задаче написано "Создать константы для каждого типа"
-    static final int STANDARD_PRICE = 2;
-    static final int PERISHABLE_PRICE = 3;
-    static final int FRAGILE_PRICE = 4;
 
-    private String description;
-    private int weight;
-    private String deliveryAddress;
-    private int sendDay;
-    private int parcelNum;
+    protected String description;
+    protected int weight;
+    protected String deliveryAddress;
+    protected int sendDay;
+    protected int parcelNum;
 
     public Parcel(String description, int weight, String deliveryAddress, int sendDay, int parcelNum) {
         this.description = description;
@@ -29,8 +25,13 @@ public abstract class Parcel {
         System.out.println("Посылка " + description + " доставлена по адресу " + deliveryAddress);
     }
 
+    //получить базовую стоимость
+    public abstract int getBaseCost();
+
     //вычислить стоимость доставки
-    public abstract int calculateDeliveryCost();
+    public int calculateDeliveryCost() {
+        return weight * getBaseCost();
+    }
 
     //упаковать посылку
     public void packageItem() {
@@ -51,5 +52,16 @@ public abstract class Parcel {
 
     public String getDescription() {
         return description;
+    }
+
+    @Override
+    public String toString() {
+        return "Parcel{" +
+                "description='" + description + '\'' +
+                ", weight=" + weight +
+                ", deliveryAddress='" + deliveryAddress + '\'' +
+                ", sendDay=" + sendDay +
+                ", parcelNum=" + parcelNum +
+                '}';
     }
 }
